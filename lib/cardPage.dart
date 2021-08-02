@@ -2,6 +2,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:ui_ui/main.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ui_ui/models/card_no.dart';
+
+List<String> cardName = ['1', '2', '3', '4'];
 
 class CardPage extends StatefulWidget {
   CardPage({Key? key}) : super(key: key);
@@ -15,12 +18,16 @@ class _CardPageState extends State<CardPage> {
   double _currentSliderValue = 3000;
   @override
   Widget build(BuildContext context) {
-    // List<Image> bgList = [
-    //   Image.asset('assets/images/bg1.png'),
-    //   Image.asset('assets/images/bg2.png'),
-    //   Image.asset('assets/images/bg3.png'),
-    //   Image.asset('assets/images/bg4.png'),
-    // ];
+    List<CardNumber> cardName = [
+      CardNumber("Main Card", "assets/images/bg1.png", "5590", "9999",
+          "assets/images/googlepay.png", "assets/images/soild.png"),
+      CardNumber("Main Card", "assets/images/bg1.png", "5590", "9999",
+          "assets/images/googlepay.png", "assets/images/soild.png"),
+      CardNumber("Main Card", "assets/images/bg1.png", "5590", "9999",
+          "assets/images/googlepay.png", "assets/images/soild.png"),
+      CardNumber("Main Card", "assets/images/bg1.png", "5590", "9999",
+          "assets/images/googlepay.png", "assets/images/soild.png"),        
+    ];
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.black,
@@ -62,13 +69,7 @@ class _CardPageState extends State<CardPage> {
                       });
                     },
                   ),
-                  items: [
-                    card1(pathImages: ('assets/images/bg1.png'),title: ('Main Card'),cardNumber: ('5167 1280 3300 1299')),
-                    card1(pathImages: ('assets/images/bg2.png'),title: ('Euro Travel'),cardNumber: ('1882 8245 9831 0505')),
-                    card1(pathImages: ('assets/images/bg3.png'),title: ('Tokyo Travel'),cardNumber: ('5367 1120 8905 0177')),
-                    card1(pathImages: ('assets/images/bg4.png'),title:('USA weekend'),cardNumber: ('7228 9021 3300 1502')),
-                    
-                  ],
+                  items: cardSlider,
                 ),
               ),
               Positioned(
@@ -396,12 +397,136 @@ class _CardPageState extends State<CardPage> {
     );
   }
 
-  Container card1({String? title, String? cardNumber ,String? pathImages}) {
+  final List<Widget> cardSlider = cardName
+      .map((item) => Container(
+            margin: EdgeInsets.only(right: 8, left: 8),
+            decoration: BoxDecoration(
+              image:
+                  DecorationImage(image: AssetImage(item), fit: BoxFit.cover),
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            height: 200,
+            width: 500,
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(16),
+                      child: Text(
+                        (item),
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(0),
+                          child: (Image.asset(
+                            'assets/images/contactlessIndicator.png',
+                            scale: 5,
+                            color: Colors.black,
+                          )),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(16),
+                          child: (Image.asset(
+                            'assets/images/googlepay.png',
+                            scale: 5,
+                          )),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(bottom: 16, left: 16, right: 16),
+                      child: Text(
+                        '123',
+                        style: TextStyle(color: Colors.white, fontSize: 15),
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          padding:
+                              EdgeInsets.only(bottom: 16, left: 16, right: 16),
+                          child: (Image.asset(
+                            'assets/images/touch.png',
+                            scale: 4,
+                            color: Colors.white,
+                          )),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(bottom: 16, left: 16, right: 16),
+                      child: Text(
+                        '05/25',
+                        style: TextStyle(color: Colors.white, fontSize: 15),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(
+                          top: 14, bottom: 14, left: 14, right: 14),
+                      child: Text(
+                        '9999',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(
+                          top: 14, bottom: 14, left: 14, right: 14),
+                      child: (Image.asset(
+                        'assets/images/solid.png',
+                        scale: 4,
+                        color: Colors.white,
+                      )),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ))
+      .toList();
+
+  Container card1(
+      {String? title,
+      String? cardNumber,
+      String? pathImages,
+      String? amount,
+      String? logoPlay,
+      String? logoVisa}) {
     return Container(
       margin: EdgeInsets.only(right: 8, left: 8),
       decoration: BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage(pathImages!), fit: BoxFit.cover),
+        image:
+            DecorationImage(image: AssetImage(pathImages!), fit: BoxFit.cover),
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
       ),
@@ -418,7 +543,7 @@ class _CardPageState extends State<CardPage> {
                 child: Text(
                   title!,
                   style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 20),
                 ),
@@ -436,7 +561,7 @@ class _CardPageState extends State<CardPage> {
                   Container(
                     padding: EdgeInsets.all(16),
                     child: (Image.asset(
-                      'assets/images/appleplay.png',
+                      '$logoPlay',
                       scale: 5,
                     )),
                   ),
@@ -452,7 +577,7 @@ class _CardPageState extends State<CardPage> {
                 padding: EdgeInsets.only(bottom: 16, left: 16, right: 16),
                 child: Text(
                   '$cardNumber',
-                  style: TextStyle(color: Colors.black, fontSize: 15),
+                  style: TextStyle(color: Colors.white, fontSize: 15),
                 ),
               ),
               Row(
@@ -477,7 +602,7 @@ class _CardPageState extends State<CardPage> {
                 padding: EdgeInsets.only(bottom: 16, left: 16, right: 16),
                 child: Text(
                   '05/25',
-                  style: TextStyle(color: Colors.black, fontSize: 15),
+                  style: TextStyle(color: Colors.white, fontSize: 15),
                 ),
               ),
             ],
@@ -490,9 +615,9 @@ class _CardPageState extends State<CardPage> {
                 padding:
                     EdgeInsets.only(top: 14, bottom: 14, left: 14, right: 14),
                 child: Text(
-                  '฿ 9,999',
+                  '$amount',
                   style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                       fontSize: 30,
                       fontWeight: FontWeight.bold),
                 ),
@@ -501,7 +626,7 @@ class _CardPageState extends State<CardPage> {
                 padding:
                     EdgeInsets.only(top: 14, bottom: 14, left: 14, right: 14),
                 child: (Image.asset(
-                  'assets/images/solid.png',
+                  '$logoVisa',
                   scale: 4,
                   color: Colors.white,
                 )),
@@ -512,8 +637,6 @@ class _CardPageState extends State<CardPage> {
       ),
     );
   }
-
-  
 
   Container card02() {
     return Container(
